@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 chatbot = ChatBot(
-    "TwitterBot",
+    "Floppy",
     logic_adapters=[
         "chatterbot.logic.BestMatch"
     ],
