@@ -1,14 +1,22 @@
 from flask import Flask, render_template, request
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
-import threading,requests,json,sys
+
 
 app = Flask(__name__)
-
-floppy = ChatBot("Chatterbot", storage_adapter="chatterbot.storage.SQLStorageAdapter")
-floppy.set_trainer(ChatterBotCorpusTrainer)
-floppy.train("chatterbot.corpus.spanish")
-
+try:
+    bot = ChatBot("Chatterbot",
+                              storage_adapter="chatterbot.storage.SQLStorageAdapter",
+                              logic_adapters=[
+                                  #'chatterbot.logic.MathematicalEvaluation',
+                                  'chatterbot.logic.LowConfidenceAdapter',
+                                  'chatterbot.logic.BestMatch',
+                                  'metro_logic.MyLogicAdapter'
+                              ])
+    # bot.set_trainer(ChatterBotCorpusTrainer)
+    # bot.train("chatterbot.corpus.spanish")
+except Exception as e:
+    print(e)
 
 @app.route("/")
 def home():
@@ -16,8 +24,11 @@ def home():
 
 @app.route("/get")
 def get_bot_response():
-    userText = request.args.get('msg')
-    return str(floppy.get_response(userText))
+    try:
+        userText = request.args.get('msg')
+    except Exception as e:
+        print(e)
+    return str(bot.get_response(userText))
 
 
 if __name__ == "__main__":

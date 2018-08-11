@@ -5,7 +5,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-    <h1>Tu fiel amigo</h1>
     <div>
       <div id="chatbox">
         <!--p class="botText"><span>Hi! I'm Chatterbot.</span></p-->
@@ -14,10 +13,12 @@
         <input id="textInput" type="text" name="msg" placeholder="Message">
         <input id="buttonInput" type="submit" value="Enviar">
       </div>
+
+  </div>
       <script>
         function getBotResponse() {
           var rawText = $("#textInput").val();
-          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+          var userHtml = '<p class="userText darker"><span>' + rawText + '</span></p>';
           $("#textInput").val("");
           $("#chatbox").append(userHtml);
           document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
@@ -36,6 +37,5 @@
           getBotResponse();
         })
       </script>
-    </div>
   </body>
 </html>
